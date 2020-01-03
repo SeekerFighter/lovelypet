@@ -8,6 +8,9 @@ import (
 func main() {
 	fmt.Println("lovely pet server start ...")
 	router := gin.Default()
-	
-	router.Run()
+
+	err := router.Run()
+	if err != nil {
+		 fmt.Println("lovely pet sever start error",err)
+	}
 }

@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4842b68b-ab1a-41d9-88e5-9eb2cba5c80e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/lovelypet/middleware/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/lovelypet/middleware/validate.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/lovelypet/util/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/lovelypet/bussiness/mood.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/lovelypet/cache/redisdb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/go_build_lovelypet.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/go_build_lovelypet.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/windows_amd64/com/lovelypet/account.a" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/windows_amd64/com/lovelypet/account.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/windows_amd64/com/lovelypet/constant.a" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/windows_amd64/com/lovelypet/constant.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lovelypet/account/sign.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lovelypet/account/sign.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lovelypet/constant/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lovelypet/constant/constants.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/lovelypet/result/result.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lovelypet/response/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lovelypet/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lovelypet/middleware/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lovelypet/middleware/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lovelypet/middleware/validate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,18 +45,19 @@
     <property name="configurable.Module.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\go_code\lovelypet\src\com\lovelypet\result" />
       <recent name="D:\go_code\lovelypet\src\com\lovelypet\constant" />
       <recent name="D:\go_code\lovelypet\src\com\lovelypet" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">

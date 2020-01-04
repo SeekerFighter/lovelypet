@@ -2,7 +2,7 @@ package account
 
 import (
 	"com/lovelypet/constant"
-	"com/lovelypet/result"
+	"com/lovelypet/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -23,7 +23,7 @@ func signUp() gin.HandlerFunc {
 		tel := c.PostForm("tel")
 		name := c.PostForm("name")
 		pwd := c.PostForm("password")
-		res,err := result.Response(constant.SUCCESS,constant.SIGNUP_SUCCESS, gin.H{
+		res,err := response.Make(constant.SUCCESS,constant.SIGNUP_SUCCESS, gin.H{
 			"tel":      tel,
 			"name":     name,
 			"password": pwd,
@@ -43,7 +43,7 @@ func signIn() gin.HandlerFunc {
 		tel := c.PostForm("tel")
 		pwd := c.PostForm("password")
 
-		res,err := result.Response(constant.SUCCESS,constant.SIGNIN_SUCCESS, gin.H{
+		res,err := response.Make(constant.SUCCESS,constant.SIGNIN_SUCCESS, gin.H{
 				"tel":     tel,
 				"password": pwd,
 			})

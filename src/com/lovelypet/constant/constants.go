@@ -10,6 +10,7 @@ const (
 const
 (
 	PARAM_NIL = "参数不正确"
+	PARAM_LOST = "缺少[ %s ]参数"
 	SIGNUP_SUCCESS = "注册成功"
 	SIGNUP_FAIL = "注册失败"
 	SIGNIN_SUCCESS = "登录成功"

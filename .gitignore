@@ -1,7 +1,5 @@
 *.swp
 *.pyc
-.idea
-.idea/
 .DS_Store
 *.rdb
 /pkg/

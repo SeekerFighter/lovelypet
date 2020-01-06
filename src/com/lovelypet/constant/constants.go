@@ -9,6 +9,7 @@ const (
 	MoodPath = "/lovelypet/mood"
 	MoodSubmit = "/submit"
 	MoodDelete = "/delete"
+	MoodQuery = "/query"
 )
 
 const

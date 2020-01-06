@@ -14,7 +14,7 @@ func ParamValid()gin.HandlerFunc  {
 
 		//客户端,android,ios,web等
 		if channel := c.PostForm("channel");channel == ""{
-			if res,err := response.Make(constant.FATAL,fmt.Sprintf(constant.PARAM_LOST,"channel"));err == nil{
+			if res,err := response.Make(constant.FATAL,fmt.Sprintf(constant.ParamLost,"channel"));err == nil{
 				c.JSON(http.StatusOK,res)
 			}
 			c.Abort()
@@ -23,7 +23,7 @@ func ParamValid()gin.HandlerFunc  {
 
 		//当前使用的服务器版本
 		if channel := c.PostForm("apiVer");channel == ""{
-			if res,err := response.Make(constant.FATAL,fmt.Sprintf(constant.PARAM_LOST,"apiVer"));err == nil{
+			if res,err := response.Make(constant.FATAL,fmt.Sprintf(constant.ParamLost,"apiVer"));err == nil{
 				c.JSON(http.StatusOK,res)
 			}
 			c.Abort()

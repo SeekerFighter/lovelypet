@@ -12,10 +12,10 @@ import (
 )
 
 var (
-	TokenExpired      = errors.New("Token is expired")
-	TokenNotValidYet  = errors.New("Token not active yet")
-	TokenMalformed    = errors.New("That's not even a token")
-	TokenInvalid      = errors.New("Couldn't handle this token")
+	TokenExpired      = errors.New("token过期")
+	TokenNotValidYet  = errors.New("token未激活")
+	TokenMalformed    = errors.New("token不合法")
+	TokenInvalid      = errors.New("token未知")
 	Jwt *JWT
 )
 
@@ -92,7 +92,7 @@ func AccessToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := getToken(c)
 		if token == "" {
-			res,err := response.Make(constant.FATAL,constant.AUTH_TOKEN_LOST)
+			res,err := response.Make(constant.FATAL,constant.AuthTokenLost)
 			if err == nil {
 				c.JSON(http.StatusOK,res)
 			}
@@ -102,7 +102,7 @@ func AccessToken() gin.HandlerFunc {
 		claims,tErr := Jwt.ParseToken(token)
 		if tErr != nil {
 			fmt.Println("AccessToken() called:",tErr)
-			if res,err := response.Make(constant.FATAL,constant.AUTH_TOKEN_INVALID);err == nil {
+			if res,err := response.Make(constant.TokenExpired,fmt.Sprintf("%s,%s",tErr.Error(),constant.AuthTokenResignin));err == nil {
 				c.JSON(http.StatusOK,res)
 			}
 			c.Abort()

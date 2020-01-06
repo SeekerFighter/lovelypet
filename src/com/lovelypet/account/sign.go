@@ -17,7 +17,6 @@ type User struct {
 	Pwd string `json:"pwd"`
 }
 
-
 func Sign(router *gin.Engine) {
 	sign := router.Group(constant.SignPath)
 	{
@@ -33,7 +32,7 @@ func signUp() gin.HandlerFunc {
 		tel := c.PostForm("tel")
 		name := c.PostForm("name")
 		pwd := c.PostForm("password")
-		res,err := response.Make(constant.SUCCESS,constant.SIGNUP_SUCCESS, gin.H{
+		res,err := response.Make(constant.SUCCESS,constant.SignupSuccess, gin.H{
 			"tel":      tel,
 			"name":     name,
 			"password": pwd,
@@ -55,7 +54,7 @@ func signIn() gin.HandlerFunc {
 
 		token,tErr := token(c,tel)
 		var code = constant.SUCCESS
-		var msg  = constant.SIGNIN_SUCCESS
+		var msg  = constant.SigninSuccess
 		var data = gin.H{}
 		if tErr == nil{
 			data["tel"] = tel

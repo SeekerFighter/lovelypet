@@ -9,7 +9,7 @@ import (
 //返回客户端网络请求结果
 func Make(results... interface{}) (gin.H,error) {
 	if results == nil || len(results) < 0 {
-		return nil,errors.New(constant.PARAM_NIL)
+		return nil,errors.New(constant.ParamNil)
 	}
 	size := len(results)
 	res := gin.H{}

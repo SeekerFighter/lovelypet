@@ -12,6 +12,7 @@ func main() {
 	fmt.Println("lovely pet server start ...")
 
 	router := gin.Default()
+	router.Use(middleware.HeaderSet())
 	router.Use(middleware.ParamValid())
 	account.Sign(router)
 	router.Use(middleware.AccessToken())
@@ -20,6 +21,7 @@ func main() {
 	}
 
 	err := router.Run()
+
 	if err != nil {
 		 fmt.Println("lovely pet sever start error",err)
 	}

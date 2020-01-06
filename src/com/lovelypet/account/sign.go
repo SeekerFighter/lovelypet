@@ -11,6 +11,13 @@ import (
 	"time"
 )
 
+type User struct {
+	Name string `json:"name"`
+	Tel string `json:"tel"`
+	Pwd string `json:"pwd"`
+}
+
+
 func Sign(router *gin.Engine) {
 	sign := router.Group(constant.SignPath)
 	{
@@ -47,7 +54,6 @@ func signIn() gin.HandlerFunc {
 		pwd := c.PostForm("password")
 
 		token,tErr := token(c,tel)
-
 		var code = constant.SUCCESS
 		var msg  = constant.SIGNIN_SUCCESS
 		var data = gin.H{}

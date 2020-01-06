@@ -15,7 +15,7 @@ var (
 	TokenExpired      = errors.New("Token is expired")
 	TokenNotValidYet  = errors.New("Token not active yet")
 	TokenMalformed    = errors.New("That's not even a token")
-	TokenInvalid      = errors.New("Couldn't handle this token:")
+	TokenInvalid      = errors.New("Couldn't handle this token")
 	Jwt *JWT
 )
 
@@ -59,6 +59,8 @@ func (j *JWT)ParseToken(tokenStr string) (*LovelyClaims,error)  {
 			} else {
 				return nil, TokenInvalid
 			}
+		}else {
+			return nil,err
 		}
 	}
 	if claims,ok := token.Claims.(*LovelyClaims);ok&&token.Valid {
@@ -88,7 +90,7 @@ func (j *JWT) RefreshToken(tokenStr string) (string, error) {
 
 func AccessToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := c.Request.Header.Get("lovelyToken")
+		token := getToken(c)
 		if token == "" {
 			res,err := response.Make(constant.FATAL,constant.AUTH_TOKEN_LOST)
 			if err == nil {
@@ -97,16 +99,36 @@ func AccessToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
 		claims,tErr := Jwt.ParseToken(token)
 		if tErr != nil {
-			if res,err := response.Make(constant.FATAL,tErr.Error());err == nil {
+			fmt.Println("AccessToken() called:",tErr)
+			if res,err := response.Make(constant.FATAL,constant.AUTH_TOKEN_INVALID);err == nil {
 				c.JSON(http.StatusOK,res)
 			}
 			c.Abort()
 			return
 		}
-		c.Set("claims",claims)
+		fmt.Println(claims)
+		//c.Set("claims",claims)
 		c.Next()
 	}
+}
+
+func getToken(c *gin.Context) string {
+	var token string
+	token = c.Request.Header.Get("lovelyToken")
+	if token == "" {
+		switch c.Request.Method {
+		case "POST":
+			token = c.PostForm("lovelyToken")
+		case "GET":
+			token = c.Query("lovelyToken")
+		default:
+			token = ""
+		}
+		if token == "" {
+			token,_ = c.Cookie("lovelyToken")
+		}
+	}
+	return token
 }

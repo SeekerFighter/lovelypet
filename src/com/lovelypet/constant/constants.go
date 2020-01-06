@@ -20,7 +20,8 @@ const
 	SIGNIN_SUCCESS = "登录成功"
 	SIGNIN_FAIL = "登录失败"
 
-	AUTH_TOKEN_LOST = "请求未携带token，权限不足"
+	AUTH_TOKEN_LOST = "请求未携带token，权限不足,请在[header/cookie/请求参数]任一里面设置,key = lovelyToken"
+	AUTH_TOKEN_INVALID = "token无效，请重新登录"
 )
 
 const

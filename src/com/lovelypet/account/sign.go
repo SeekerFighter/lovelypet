@@ -58,18 +58,18 @@ func signIn() gin.HandlerFunc {
 		tel := c.PostForm("tel")
 		pwd := c.PostForm("password")
 		fmt.Println("signIn()called: tel=",tel,"pwd=",pwd)
-		var code = constant.SUCCESS
-		var msg  = constant.SigninSuccess
-		var data = gin.H{}
+		var(
+		 code = constant.SUCCESS
+		 msg  = constant.SigninSuccess
+		 data *model.User
+		)
 		u := model.NewUser("",tel,"")
-
 		if u.IsUserExist() {
 			if u.Pwd == pwd {
 				token,tErr := token(c,tel)
 				if tErr == nil{
-					data["tel"] = tel
-					data["pwd"] = pwd
-					data["token"] = token
+					data = u
+					c.SetCookie(constant.Token, token, 3600, "/", "localhost", false, true)
 				}else {
 					code = constant.FATAL
 					msg = tErr.Error()

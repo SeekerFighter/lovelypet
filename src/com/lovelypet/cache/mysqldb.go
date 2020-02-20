@@ -20,11 +20,10 @@ func init() {
 	DBClient.DB().SetMaxOpenConns(100)
 }
 
-func CreateTable(tables ...interface{})  {
-	for _,table := range tables{
-		if !DBClient.HasTable(table) {
-			DBClient.CreateTable(table)
+func CreateTable(models ...interface{})  {
+	for _,model := range models{
+		if !DBClient.HasTable(model) {
+			DBClient.CreateTable(model)
 		}
 	}
 }
-

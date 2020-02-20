@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"lovelypet/src/com/lovelypet/constant"
+	"reflect"
 )
 
 //返回客户端网络请求结果
@@ -19,7 +20,7 @@ func Make(results... interface{}) (gin.H,error) {
 	if size >= 2 {
 		res["message"] = results[1]
 	}
-	if size >= 3 {
+	if size >= 3 && !reflect.ValueOf(results[2]).IsNil(){
 		res["data"] = results[2]
 	}
 	return res,nil

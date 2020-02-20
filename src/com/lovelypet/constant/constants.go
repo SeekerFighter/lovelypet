@@ -14,6 +14,7 @@ const (
 
 const
 (
+	Token             = "lovelyToken"
 	ParamNil          = "参数不正确"
 	ParamLost         = "缺少[ %s ]参数"
 	SignupSuccess     = "注册成功"

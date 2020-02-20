@@ -20,7 +20,7 @@ var (
 )
 
 func init() {
-	Jwt = newJWT("lovelyToken")
+	Jwt = newJWT(constant.Token)
 	fmt.Println("auth init()called,JWT init success...")
 }
 
@@ -116,18 +116,18 @@ func AccessToken() gin.HandlerFunc {
 
 func getToken(c *gin.Context) string {
 	var token string
-	token = c.Request.Header.Get("lovelyToken")
+	token = c.Request.Header.Get(constant.Token)
 	if token == "" {
 		switch c.Request.Method {
 		case "POST":
-			token = c.PostForm("lovelyToken")
+			token = c.PostForm(constant.Token)
 		case "GET":
-			token = c.Query("lovelyToken")
+			token = c.Query(constant.Token)
 		default:
 			token = ""
 		}
 		if token == "" {
-			token,_ = c.Cookie("lovelyToken")
+			token,_ = c.Cookie(constant.Token)
 		}
 	}
 	return token

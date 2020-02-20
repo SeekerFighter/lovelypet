@@ -5,7 +5,6 @@
 .DS_Store
 *.rdb
 /pkg/
-/logs/pkg/
 .exe
 /bin/
 *.mod

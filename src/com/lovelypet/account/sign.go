@@ -1,21 +1,16 @@
 package account
 
 import (
-	"com/lovelypet/constant"
-	"com/lovelypet/middleware"
-	"com/lovelypet/response"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"lovelypet/src/com/lovelypet/constant"
+	"lovelypet/src/com/lovelypet/middleware"
+	"lovelypet/src/com/lovelypet/model"
+	"lovelypet/src/com/lovelypet/response"
 	"net/http"
 	"time"
 )
-
-type User struct {
-	Name string `json:"name"`
-	Tel string `json:"tel"`
-	Pwd string `json:"pwd"`
-}
 
 func Sign(router *gin.Engine) {
 	sign := router.Group(constant.SignPath)
@@ -32,12 +27,23 @@ func signUp() gin.HandlerFunc {
 		tel := c.PostForm("tel")
 		name := c.PostForm("name")
 		pwd := c.PostForm("password")
-		res,err := response.Make(constant.SUCCESS,constant.SignupSuccess, gin.H{
-			"tel":      tel,
-			"name":     name,
-			"password": pwd,
-		})
-
+		fmt.Println("Signup()called:name=",name,",tel=",tel,",pwd=",pwd)
+		var(
+			res gin.H
+			err error
+		)
+		u := model.NewUser(name,tel,pwd)
+		if u.IsUserExist() {
+			res,err = response.Make(constant.FATAL,constant.SignupRepeat)
+		}else if u.Insert() {
+			res,err = response.Make(constant.SUCCESS,constant.SignupSuccess, gin.H{
+				"tel":      tel,
+				"name":     name,
+				"password": pwd,
+			})
+		}else {
+			res,err = response.Make(constant.FATAL,constant.ServerSqlError)
+		}
 		if err == nil {
 			c.JSON(http.StatusOK,res)
 		}else {
@@ -51,18 +57,30 @@ func signIn() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tel := c.PostForm("tel")
 		pwd := c.PostForm("password")
-
-		token,tErr := token(c,tel)
+		fmt.Println("signIn()called: tel=",tel,"pwd=",pwd)
 		var code = constant.SUCCESS
 		var msg  = constant.SigninSuccess
 		var data = gin.H{}
-		if tErr == nil{
-			data["tel"] = tel
-			data["pwd"] = pwd
-			data["token"] = token
+		u := model.NewUser("",tel,"")
+
+		if u.IsUserExist() {
+			if u.Pwd == pwd {
+				token,tErr := token(c,tel)
+				if tErr == nil{
+					data["tel"] = tel
+					data["pwd"] = pwd
+					data["token"] = token
+				}else {
+					code = constant.FATAL
+					msg = tErr.Error()
+				}
+			}else {
+				code = constant.FATAL
+				msg = constant.PwdError
+			}
 		}else {
 			code = constant.FATAL
-			msg = tErr.Error()
+			msg = constant.SignupNotRecord
 		}
 
 		res,err := response.Make(code,msg,data)
@@ -93,4 +111,3 @@ func token(c *gin.Context,tel string) (string,error)  {
 	}
 	return middleware.Jwt.GenerateToken(claims)
 }
-

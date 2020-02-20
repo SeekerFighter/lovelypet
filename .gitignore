@@ -5,5 +5,10 @@
 .DS_Store
 *.rdb
 /pkg/
+/logs/pkg/
 .exe
 /bin/
+*.mod
+*.sum
+/logs/
+/src/pkg/

@@ -1,15 +1,20 @@
 package main
 
 import (
-	"com/lovelypet/account"
-	"com/lovelypet/bussiness"
-	"com/lovelypet/middleware"
-	"fmt"
+	. "fmt"
 	"github.com/gin-gonic/gin"
+	"lovelypet/src/com/lovelypet/account"
+	"lovelypet/src/com/lovelypet/bussiness"
+	"lovelypet/src/com/lovelypet/cache"
+	"lovelypet/src/com/lovelypet/middleware"
+	"lovelypet/src/com/lovelypet/model"
 )
 
 func main() {
-	fmt.Println("lovely pet server start ...")
+
+	Println("lovely pet server start ...")
+
+	cache.CreateTable(&model.User{})
 
 	router := gin.Default()
 	router.Use(middleware.HeaderSet())
@@ -23,6 +28,6 @@ func main() {
 	err := router.Run()
 
 	if err != nil {
-		 fmt.Println("lovely pet sever start error",err)
+		 Println("lovely pet sever start error",err)
 	}
 }

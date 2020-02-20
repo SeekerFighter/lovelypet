@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"com/lovelypet/constant"
-	"com/lovelypet/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"lovelypet/src/com/lovelypet/constant"
+	"lovelypet/src/com/lovelypet/response"
 	"net/http"
 )
 

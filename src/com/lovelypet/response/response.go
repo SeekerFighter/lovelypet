@@ -1,9 +1,9 @@
 package response
 
 import (
-	"com/lovelypet/constant"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"lovelypet/src/com/lovelypet/constant"
 )
 
 //返回客户端网络请求结果

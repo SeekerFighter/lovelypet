@@ -6,11 +6,11 @@ import (
 	"time"
 )
 
-var client *redis.Client
+var RedisClient *redis.Client
 
 func init() {
 	fmt.Println("redis client init() called...")
-	client = redis.NewClient(&redis.Options{
+	RedisClient = redis.NewClient(&redis.Options{
 		Addr:"127.0.0.1:6379",
 		Password:"",
 		DB:0,
@@ -18,7 +18,7 @@ func init() {
 		MaxRetries:3,
 		IdleTimeout:10*time.Second,
 	})
-	pong,err := client.Ping().Result()
+	pong,err := RedisClient.Ping().Result()
 
 	if err == redis.Nil {
 		fmt.Println("redis 异常")
@@ -31,7 +31,7 @@ func init() {
 
 //获取自增唯一id
 func IncrUniqueId(key string) int  {
-	id,err := client.Incr(key).Result()
+	id,err := RedisClient.Incr(key).Result()
 	if err != nil {
 		fmt.Println("redis incr error:",err)
 	}

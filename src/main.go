@@ -13,8 +13,8 @@ import (
 func main() {
 
 	Println("lovely pet server start ...")
-
-	cache.CreateTable(&model.User{})
+	//cache.DropTable(&model.User{},&model.MoodInfo{})
+	cache.CreateTable(&model.User{},&model.MoodInfo{})
 
 	router := gin.Default()
 	router.Use(middleware.HeaderSet())

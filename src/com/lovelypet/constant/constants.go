@@ -22,7 +22,7 @@ const
 	SignupNotRecord   = "该手机号未注册"
 	SigninSuccess     = "登录成功"
 	PwdError          = "密码错误"
-	ServerSqlError    = "服务器数据插入失败"
+	ServerSqlError    = "服务器数据库错误"
 	AuthTokenLost     = "请求未携带token，权限不足,请在[header/cookie/请求参数]任一里面设置,key = lovelyToken"
 	AuthTokenResignin = "请重新登录"
 )

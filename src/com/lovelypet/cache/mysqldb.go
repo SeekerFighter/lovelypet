@@ -27,3 +27,19 @@ func CreateTable(models ...interface{})  {
 		}
 	}
 }
+
+func DropTable(models ...interface{})  {
+	for _,model := range models{
+		DBClient.DropTableIfExists(model)
+	}
+}
+
+func Insert(model interface{})bool  {
+	fmt.Println("Insert()called wwith model:",model)
+	err := DBClient.Create(model).Error
+	if err != nil {
+		fmt.Println("Insert() called err:", err)
+		return false
+	}
+	return true
+}

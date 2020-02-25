@@ -3,6 +3,8 @@ package bussiness
 import (
 	"github.com/gin-gonic/gin"
 	"lovelypet/src/com/lovelypet/constant"
+	"lovelypet/src/com/lovelypet/middleware"
+	"lovelypet/src/com/lovelypet/model"
 	"lovelypet/src/com/lovelypet/response"
 	"net/http"
 )
@@ -21,8 +23,25 @@ func Mood(router *gin.Engine) {
 
 func _submit() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if res,err := response.Make(constant.SUCCESS,"提交成功");err == nil {
-			c.JSON(http.StatusOK,res)
+
+		var (
+			res gin.H
+			err error
+		)
+
+		userId := middleware.GetUserIdFromCookie(c)
+		moodText := c.PostForm("moodText")
+
+		moodInfo := model.NewMoodInfo(userId,moodText)
+
+		if moodInfo.Insert() {
+			if res,err = response.Make(constant.SUCCESS,moodInfo);err == nil {
+				c.JSON(http.StatusOK,res)
+			}
+		}else {
+			if res,err = response.Make(constant.FATAL,constant.ServerSqlError);err == nil {
+				c.JSON(http.StatusOK,res)
+			}
 		}
 	}
 }

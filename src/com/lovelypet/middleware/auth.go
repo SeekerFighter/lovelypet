@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"lovelypet/src/com/lovelypet/constant"
 	"lovelypet/src/com/lovelypet/response"
+	"lovelypet/src/com/lovelypet/util"
 	"net/http"
 	"time"
 )
@@ -25,7 +26,7 @@ func init() {
 }
 
 type LovelyClaims struct {
-	Tel   string `json:"tel"`
+	ID   uint `json:"id"`
 	jwt.StandardClaims
 }
 
@@ -90,7 +91,7 @@ func (j *JWT) RefreshToken(tokenStr string) (string, error) {
 
 func AccessToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := getToken(c)
+		token := util.GetToken(c)
 		if token == "" {
 			res,err := response.Make(constant.FATAL,constant.AuthTokenLost)
 			if err == nil {
@@ -110,25 +111,15 @@ func AccessToken() gin.HandlerFunc {
 		}
 		fmt.Println(claims)
 		//c.Set("claims",claims)
+		//nToken,_ := Jwt.RefreshToken(token)
+		//util.SetNewCookie(c,nToken)
 		c.Next()
 	}
 }
 
-func getToken(c *gin.Context) string {
-	var token string
-	token = c.Request.Header.Get(constant.Token)
-	if token == "" {
-		switch c.Request.Method {
-		case "POST":
-			token = c.PostForm(constant.Token)
-		case "GET":
-			token = c.Query(constant.Token)
-		default:
-			token = ""
-		}
-		if token == "" {
-			token,_ = c.Cookie(constant.Token)
-		}
-	}
-	return token
+func GetUserIdFromCookie(c *gin.Context) uint {
+	token := util.GetToken(c)
+	claims,_ := Jwt.ParseToken(token)
+	return claims.ID
 }
+

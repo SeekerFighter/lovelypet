@@ -8,6 +8,7 @@ import (
 	"lovelypet/src/com/lovelypet/middleware"
 	"lovelypet/src/com/lovelypet/model"
 	"lovelypet/src/com/lovelypet/response"
+	"lovelypet/src/com/lovelypet/util"
 	"net/http"
 	"time"
 )
@@ -66,10 +67,10 @@ func signIn() gin.HandlerFunc {
 		u := model.NewUser("",tel,"")
 		if u.IsUserExist() {
 			if u.Pwd == pwd {
-				token,tErr := token(c,tel)
+				token,tErr := token(u.ID)
 				if tErr == nil{
 					data = u
-					c.SetCookie(constant.Token, token, 3600, "/", "localhost", false, true)
+					util.SetNewCookie(c,token)
 				}else {
 					code = constant.FATAL
 					msg = tErr.Error()
@@ -100,9 +101,9 @@ func signOut() gin.HandlerFunc {
 	}
 }
 
-func token(c *gin.Context,tel string) (string,error)  {
+func token(id uint) (string,error)  {
 	claims := middleware.LovelyClaims{
-		Tel:            tel,
+		ID:            id,
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 1000, // 签名生效时间
 			ExpiresAt: time.Now().Unix() + 3600, // 过期时间 一小时

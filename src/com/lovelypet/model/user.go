@@ -17,7 +17,7 @@ func NewUser(name, tel, pwd string) *User {
 }
 
 func (u *User) IsUserExist() bool {
-	return !cache.DBClient.Where("tel=?", u.Tel).First(u).RecordNotFound()
+	return cache.IsExist(u,"tel=?", u.Tel)
 }
 
 func (u *User) Insert() bool {

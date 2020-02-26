@@ -25,6 +25,9 @@ const
 	ServerSqlError    = "服务器数据库错误"
 	AuthTokenLost     = "请求未携带token，权限不足,请在[header/cookie/请求参数]任一里面设置,key = lovelyToken"
 	AuthTokenResignin = "请重新登录"
+	DeleteSuccess     = "删除成功"
+	NotRecord         = "记录不存在"
+	QuerySuccess = "查询成功"
 )
 
 const

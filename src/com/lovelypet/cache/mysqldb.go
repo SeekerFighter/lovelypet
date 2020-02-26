@@ -43,3 +43,24 @@ func Insert(model interface{})bool  {
 	}
 	return true
 }
+
+func Delete(modelTable,whereCondition,whereArgs interface{}) bool {
+	err := DBClient.Where(whereCondition,whereArgs).Delete(modelTable).Error
+	if err != nil{
+		fmt.Println("Delete() called err:", err)
+		return false
+	}
+	return true
+}
+
+func Update()  {
+	
+}
+
+func IsExist(model,whereCondition,whereArgs interface{}) bool {
+	return !DBClient.Where(whereCondition,whereArgs).First(model).RecordNotFound()
+}
+
+func Query(modelArray,whereCondition,whereArgs interface{}) error {
+	return DBClient.Where(whereCondition,whereArgs).Find(modelArray).Error
+}

@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"lovelypet/src/com/lovelypet/cache"
 )
@@ -17,4 +18,22 @@ func NewMoodInfo(userId uint,moodText string) *MoodInfo {
 
 func (mood *MoodInfo) Insert()bool {
 	return cache.Insert(mood)
+}
+
+func Delete(id string) bool  {
+	return cache.Delete(&MoodInfo{},"id = ?",id)
+}
+
+func (mood *MoodInfo)IsMoodExist() bool {
+	return cache.IsExist(mood,"id = ?",mood.ID)
+}
+
+func Query(userId uint)[]MoodInfo  {
+	var moods [] MoodInfo
+	err := cache.Query(&moods,"user_id = ?",userId)
+	if err != nil {
+		fmt.Println("Query()called  with userId[",userId,"]error:\n",err)
+		return nil
+	}
+	return moods
 }
